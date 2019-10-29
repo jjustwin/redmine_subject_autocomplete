@@ -6,3 +6,6 @@ when one of the listed issues is selected, navigation changes to the selected is
 compatible with redmine 4 and 3.
 
 ![screenshot-1](other/subject_autocomplete.png?raw=true)
+
+# license
+gpl3
