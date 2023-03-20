@@ -1,10 +1,9 @@
-require "redmine"
-require_dependency "redmine_subject_autocomplete/hooks"
+require File.expand_path 'lib/redmine_subject_autocomplete/hooks', __dir__
 
 Redmine::Plugin.register :redmine_subject_autocomplete do
-  name "redmine subject autocomplete"
-  author "intera gmbh"
+  name "Redmine Subject Autocomplete"
+  author "Intera GmbH"
   author_url "https://github.com/intera"
   version "1.0.0"
-  description "makes the issue subject field show an autocomplete that lists existing issues to prevent duplicate ticket creation"
+  description "Adds autocompletion to the new issue subject field to prevent duplicate ticket creation"
 end
