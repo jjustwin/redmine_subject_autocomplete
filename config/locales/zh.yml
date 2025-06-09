@@ -1,0 +1,8 @@
+zh:
+  placeholder_text: "输入关键字会显示相关问题"
+  field_issue_autocomplete: "相关工单"
+  label_autocomplete_placeholder: "输入中文关键词"
+  issue_status_open: "开放"
+  issue_status_closed: "已关闭"
+  issue_reference: "工单 #%{id}"
+  version_label: "版本: %{name}"
