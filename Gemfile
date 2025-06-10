@@ -1,0 +1,1 @@
+"gem 'ruby-jieba', require: 'jieba'"

@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 class SubjectAutocompleteController < ApplicationController
+  require 'jieba'
+  
+  JIEBA = Jieba::Segment.new(mode: :search)
 
   if Rails::VERSION::MAJOR >= 4
     before_action :find_project, :init
@@ -13,7 +16,11 @@ class SubjectAutocompleteController < ApplicationController
   end
 
   def get_matches
-    # autocomplete for the issue subject field.
+    # 支持中英文混合的智能自动补全
+    # 分词逻辑：
+    # 1. 英文/数字保持单词分割
+    # 2. 中文使用jieba分词
+    # 3. 合并去重后生成查询条件
     limit_count = 15
     default_closed_past_days = 30
     # load closed tickets, show issue id
@@ -39,7 +46,13 @@ class SubjectAutocompleteController < ApplicationController
       past_days = params[:closed_past_days] ? params[:closed_past_days].to_i : default_closed_past_days
       time_now = DateTime.now
       # use ruby regexp. not all databases support regexp in sql
-      q = q.gsub(/[^\p{Han}a-zA-Z0-9# ]/u, "").split(" ").map{|e|
+      # 混合分词处理
+      clean_q = q.gsub(/[^\p{Han}a-zA-Z0-9# ]/u, "")
+      en_terms = clean_q.scan(/[a-zA-Z0-9#]+/)
+      cn_terms = JIEBA.cut(clean_q.gsub(/[a-zA-Z0-9#]/, '')).reject(&:empty?)
+      terms = (en_terms + cn_terms).uniq
+      
+      terms.map{|e|
         e = Issue.connection.quote("%#{e}%")
         case ActiveRecord::Base.connection.adapter_name
         when /PostgreSQL/i
