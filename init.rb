@@ -1,6 +1,6 @@
 require File.expand_path 'lib/redmine_subject_autocomplete/hooks', __dir__
 
-Redmine::Plugin.register :redmine_subject_autocomplete_chinese do
+Redmine::Plugin.register :redmine_subject_autocomplete do
   name "Redmine Subject Autocomplete for Chinese"
   author "jjustwin"
   author_url "https://github.com/jjustwin"
