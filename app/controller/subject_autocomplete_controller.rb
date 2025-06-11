@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 class SubjectAutocompleteController < ApplicationController
-  require 'jieba'
+  require 'jieba_rb'
   
-  JIEBA = Jieba::Segment.new(mode: :search)
+  JIEBA = JiebaRb::Segment.new(mode: :search)
 
   if Rails::VERSION::MAJOR >= 4
     before_action :find_project, :init
@@ -49,7 +49,7 @@ class SubjectAutocompleteController < ApplicationController
       # 混合分词处理
       clean_q = q.gsub(/[^\p{Han}a-zA-Z0-9# ]/u, "")
       en_terms = clean_q.scan(/[a-zA-Z0-9#]+/)
-      cn_terms = JIEBA.cut(clean_q.gsub(/[a-zA-Z0-9#]/, '')).reject(&:empty?)
+      cn_terms = JIEBA.cut(clean_q.gsub(/[a-zA-Z0-9#]/, '')).flatten.reject(&:empty?)
       terms = (en_terms + cn_terms).uniq
       
       terms.map{|e|

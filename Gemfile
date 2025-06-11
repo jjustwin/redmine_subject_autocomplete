@@ -1,1 +1,1 @@
-"gem 'ruby-jieba', require: 'jieba'"
+gem 'jieba_rb', '~> 0.0.5'
