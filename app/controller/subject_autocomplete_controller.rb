@@ -2,7 +2,7 @@
 class SubjectAutocompleteController < ApplicationController
   require 'jieba_rb'
   
-  JIEBA = JiebaRb::Segment.new(mode: :search)
+  JIEBA = JiebaRb::Segment.new(mode: :mix)  # 使用mix模式（默认分词模式）
 
   if Rails::VERSION::MAJOR >= 4
     before_action :find_project, :init
