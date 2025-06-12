@@ -6,3 +6,4 @@ when one of the listed issues is selected, navigation changes to the selected is
 compatible with redmine 4 and 3. license: gpl3.
 
 # 在原作者的基础上增加了对中文的支持
+在redmine 5.0版本上通过测试，其他版本请自行测试
