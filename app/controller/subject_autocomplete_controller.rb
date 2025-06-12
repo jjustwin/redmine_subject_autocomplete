@@ -53,7 +53,7 @@ class SubjectAutocompleteController < ApplicationController
       terms = (en_terms + cn_terms).uniq
       Rails.logger.debug "分词结果: #{terms.inspect}"
       
-      terms.map{|e|
+      q=terms.map{|e|
         e = Issue.connection.quote("%#{e}%")
         case ActiveRecord::Base.connection.adapter_name
         when /PostgreSQL/i
