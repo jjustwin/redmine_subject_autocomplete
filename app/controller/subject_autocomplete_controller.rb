@@ -52,6 +52,8 @@ class SubjectAutocompleteController < ApplicationController
       cn_terms = JIEBA.cut(clean_q.gsub(/[a-zA-Z0-9#]/, '')).flatten.reject(&:empty?)
       terms = (en_terms + cn_terms).uniq
       Rails.logger.debug "分词结果: #{terms.inspect}"
+      terms = terms.select { |term| term.length >= 2 }
+      Rails.logger.debug "过滤后的分词结果: #{terms.inspect}"
       
       q=terms.map{|e|
         e = Issue.connection.quote("%#{e}%")
